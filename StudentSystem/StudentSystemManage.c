@@ -4,34 +4,12 @@
 #include<stdlib.h>
 #include<string.h>
 
-int main()
+typedef struct Students
 {
-	Node_t * tail = NULL;
-    Node_t * head  = NULL; 
+	Node_t * head;
+	Node_t * tail;
+} Students_t;
 
-    while (1)
-    {
-        welcome();
-        char c = getchar();
-
-        switch (c)
-        {
-			case '1': // 录入学生信息 
-				inputStudent(&head, &tail);
-				break;
-			case '2': // 查找学生信息 
-				searchStudent(head);
-				break;
-			case '3': // 退出系统
-				exit(0);
-				break;
-			default:
-				break;
-        }
-    }
-
-    return 0;
-}
 
 void welcome() 
 {
@@ -46,9 +24,9 @@ void welcome()
     printf("*********************************\n");
 }
 
-void inputStudent(Node_t ** head, Node_t ** tail)
+void inputStudent(Students_t * students)
 {
-    Node_t * fresh = (Node_t*)malloc(sizeof(Node_t));
+    Node_t * fresh = (Node_t*) malloc(sizeof(Node_t));
 	memset(fresh, 0, sizeof(Node_t));
 
     printf("请输入学生的姓名，性别，年龄，班级，寝室: ");
@@ -60,21 +38,21 @@ void inputStudent(Node_t ** head, Node_t ** tail)
 		&fresh->student.clas,
 		&fresh->student.chamber);
 
-	if (*head == NULL)
+	if (students->head == NULL)
 	{
-		*head = fresh;
-		*tail = fresh;
+		students->head = fresh;
+		students->tail = fresh;
 	}
 	else
 	{
-		(*tail)->next = fresh;
-		*tail = fresh;
+		students->tail->next = fresh;
+		students->tail = fresh;
 	}
 }
 
-void searchStudent(Node_t * head)
+void searchStudent(Students_t * students)
 {
-	if (head == NULL)
+	if (students->head == NULL)
 	{
 		printf("没有录入学生：\n");
 		return;
@@ -84,6 +62,8 @@ void searchStudent(Node_t * head)
 
     char name[120] = {'\0'};
     scanf("%s", name);
+
+	Node_t * head = students->head;
 
     while (head != NULL) 
     {
@@ -100,5 +80,35 @@ void searchStudent(Node_t * head)
         head = head->next;
     }
 
-	printf("没有记录/n");
+	printf("没有记录\n");
+}
+
+
+int main()
+{
+	Students_t students;
+	memset(&students, 0, sizeof(students));
+
+    while (1)
+    {
+        welcome();
+        char c = getchar();
+
+        switch (c)
+        {
+			case '1': // 录入学生信息 
+				inputStudent(&students);
+				break;
+			case '2': // 查找学生信息 
+				searchStudent(&students);
+				break;
+			case '3': // 退出系统
+				exit(0);
+				break;
+			default:
+				break;
+        }
+    }
+
+    return 0;
 }

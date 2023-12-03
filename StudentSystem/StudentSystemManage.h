@@ -16,10 +16,4 @@ typedef struct Node
 	struct Node * next;
 } Node_t;
 
-void welcome();
-
-void inputStudent(Node_t ** head, Node_t ** tail);
-
-void searchStudent(Node_t * head);
-
 #endif // STUDENT_SYSTEM_MANAGE_H 
