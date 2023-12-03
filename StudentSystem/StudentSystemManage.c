@@ -1,9 +1,13 @@
 #include "StudentSystemManage.h"
 
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
 int main()
 {
-	Node * tail = NULL;
-    Node * head  = NULL; 
+	Node_t * tail = NULL;
+    Node_t * head  = NULL; 
 
     while (1)
     {
@@ -42,10 +46,10 @@ void welcome()
     printf("*********************************\n");
 }
 
-void inputStudent(Node ** head, Node ** tail)
+void inputStudent(Node_t ** head, Node_t ** tail)
 {
-    Node * fresh = (Node*)malloc(sizeof(Node));
-	memset(fresh, 0, sizeof(Node));
+    Node_t * fresh = (Node_t*)malloc(sizeof(Node_t));
+	memset(fresh, 0, sizeof(Node_t));
 
     printf("请输入学生的姓名，性别，年龄，班级，寝室: ");
 	
@@ -68,7 +72,7 @@ void inputStudent(Node ** head, Node ** tail)
 	}
 }
 
-void searchStudent(Node * head)
+void searchStudent(Node_t * head)
 {
 	if (head == NULL)
 	{

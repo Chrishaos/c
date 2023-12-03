@@ -1,24 +1,25 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#ifndef STUDENT_SYSTEM_MANAGE_H 
+#define STUDENT_SYSTEM_MANAGE_H
 
-typedef struct _Student
+typedef struct Student
 {
 	int age;
 	int clas;
 	int chamber;
 	char name[128];
 	char sex[8];
-} Student;
+} Student_t;
 
-typedef struct _Node
+typedef struct Node
 {
-	Student student;
-	struct _Node* next;
-} Node;
+	Student_t student;
+	struct Node * next;
+} Node_t;
 
 void welcome();
 
-void inputStudent(Node ** head, Node ** tail);
+void inputStudent(Node_t ** head, Node_t ** tail);
 
-void searchStudent(Node * head);
+void searchStudent(Node_t * head);
+
+#endif // STUDENT_SYSTEM_MANAGE_H 
