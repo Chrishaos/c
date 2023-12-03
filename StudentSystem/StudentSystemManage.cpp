@@ -2,98 +2,99 @@
 
 int main()
 {
-	//´´½¨Í·½áµã
-	Node* head = (Node*)malloc(sizeof(Node));
-	head->next = NULL;
+	Node * tail = NULL;
+    Node * head  = NULL; 
 
-	while (1)
-	{
+    while (1)
+    {
+        welcome();
+        char c = getchar();
 
-		welcome();
-		char c = _getch();
+        switch (c)
+        {
+			case '1': // å½•å…¥å­¦ç”Ÿä¿¡æ¯ 
+				inputStudent(&head, &tail);
+				break;
+			case '2': // æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯ 
+				searchStudent(head);
+				break;
+			case '3': // é€€å‡ºç³»ç»Ÿ
+				exit(0);
+				break;
+			default:
+				break;
+        }
+    }
 
-		switch (c)
-		{
-		case '1'://Â¼ÈëÑ§ÉúÐÅÏ¢
-			inputStudent(head);
-			break;
-		case '2'://²éÕÒÑ§ÉúÐÅÏ¢
-			searchStudent(head);
-			break;
-		case '3'://ÍË³öÏµÍ³
-			exit(0);
-			break;
-		default:
-			break; 
-		}
-	}
-
-	return 0;
+    return 0;
 }
 
-void welcome(){
-	printf("*********************************\n");
-	printf("*\tÑ§Éú¹ÜÀíÏµÍ³\t\t*\n");
-	printf("*********************************\n");
-	printf("*\tÇëÑ¡Ôñ¹¦ÄÜÁÐ±í\t\t*\n");
-	printf("*********************************\n");
-	printf("*\t1.Â¼ÈëÑ§ÉúÐÅÏ¢\t\t*\n");
-	printf("*\t2.²éÕÒÑ§ÉúÐÅÏ¢\t\t*\n");
-	printf("*\t3.ÍË³öÏµÍ³\t\t*\n");
-	printf("*********************************\n");
-	}
-
-void inputStudent(Node* head)
+void welcome() 
 {
-	Node* fresh = (Node*)malloc(sizeof(Node));
-	fresh->next = NULL;
-	printf("ÇëÊäÈëÑ§ÉúµÄÐÕÃû£¬ÐÔ±ð£¬ÄêÁä£¬°à¼¶£¬ÇÞÊÒ");
-		scanf("%c,%c,%d,%d,%d", fresh->student.Name,
-			fresh->student.sex,
-			&fresh->student.age, 
-			&fresh->student.clas, 
-			&fresh->student.chamber);
-
-		Node* move = head;
-		while (move->next != NULL)
-		{
-			move = move->next;
-		}
-		//½«Ñ§Éú²åÈëµ½Î²²¿
-		move->next = fresh;
-		//ÔÝÍ£³ÌÐò
-		system("pause");
-		//Çå¿Õ¿ØÖÆÌ¨
-		system("cls");
+    printf("*********************************\n");
+    printf("*\tå­¦ç”Ÿç®¡ç†ç³»ç»Ÿ\t\t*\n");
+    printf("*********************************\n");
+    printf("*\tè¯·é€‰æ‹©åŠŸèƒ½åˆ—è¡¨\t\t*\n");
+    printf("*********************************\n");
+    printf("*\t1.å½•å…¥å­¦ç”Ÿä¿¡æ¯\t\t*\n");
+    printf("*\t2.æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯\t\t*\n");
+    printf("*\t3.é€€å‡ºç³»ç»Ÿ\t\t*\n");
+    printf("*********************************\n");
 }
 
-void searchStudent(Node* head)
+void inputStudent(Node ** head, Node ** tail)
 {
-	printf("ÇëÊäÈëÒª²éÕÒµÄÑ§ÉúµÄÃû×Ö£º/n");
-	char Name[20];
-	scanf("%c", &Name);
-	Node* move = move->next;
+    Node * fresh = (Node*)malloc(sizeof(Node));
+	memset(fresh, 0, sizeof(Node));
+
+    printf("è¯·è¾“å…¥å­¦ç”Ÿçš„å§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„ï¼Œç­çº§ï¼Œå¯å®¤: ");
+	
+	scanf("%s %s %d %d %d", 
+		fresh->student.name, 
+		fresh->student.sex,
+		&fresh->student.age, 
+		&fresh->student.clas,
+		&fresh->student.chamber);
+
+	if (*head == NULL)
 	{
-	while (move != NULL)
-		if (Name == move->student.Name)
-		{
-			printf("ÐÕÃû£º%c ÐÔ±ð£º%c ÄêÁä£º%d °à¼¶£º%d ÇÞÊÒ£º%d\n",
-				move->student.Name,
-				move->student.sex,
-				move->student.age,
-				move->student.clas,
-				move->student.chamber);
-			//ÔÝÍ£³ÌÐò
-			system("pause");
-			//Çå¿Õ¿ØÖÆÌ¨
-			system("cls");
-			return;
-		}
-		move = move->next;
-		}
-	printf("Ã»ÓÐ¼ÇÂ¼/n");
-	//ÔÝÍ£³ÌÐò
-	system("pause");
-	//Çå¿Õ¿ØÖÆÌ¨
-	system("cls");
+		*head = fresh;
+		*tail = fresh;
+	}
+	else
+	{
+		(*tail)->next = fresh;
+		*tail = fresh;
+	}
+}
+
+void searchStudent(Node * head)
+{
+	if (head == NULL)
+	{
+		printf("æ²¡æœ‰å½•å…¥å­¦ç”Ÿï¼š\n");
+		return;
+	}
+
+	printf("è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„å­¦ç”Ÿçš„åå­—ï¼š\n");
+
+    char name[120] = {'\0'};
+    scanf("%s", name);
+
+    while (head != NULL) 
+    {
+        if (strcmp(name, head->student.name) == 0)
+        {
+			printf("å§“åï¼š%s æ€§åˆ«ï¼š%s å¹´é¾„ï¼š%d ç­çº§ï¼š%d å¯å®¤ï¼š%d\n",
+                head->student.name,
+                head->student.sex,
+                head->student.age,
+                head->student.clas,
+                head->student.chamber);
+            return;
+        }
+        head = head->next;
+    }
+
+	printf("æ²¡æœ‰è®°å½•/n");
 }
